@@ -7,7 +7,6 @@ name = "cod-cookie-jar"
 version = "0.1.0"
 description = "Export cookies.txt (Netscape format) from a browser you control, across automation stacks."
 readme = "README.md"
-license = { text = "MIT" }
 requires-python = ">=3.9"
 keywords = ["cookies", "cookies.txt", "netscape", "cdp", "playwright", "selenium", "yt-dlp"]
 dependencies = []

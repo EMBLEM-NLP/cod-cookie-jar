@@ -75,6 +75,3 @@ Seven tab-separated fields per line: `domain`, `includeSubdomains`, `path`, `sec
 ```bash
 pytest                       # golden-file serializer suite is the core guarantee
 ```
-
-## License
-MIT
