@@ -1,0 +1,30 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "cod-cookie-jar"
+version = "0.1.0"
+description = "Export cookies.txt (Netscape format) from a browser you control, across automation stacks."
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = ">=3.9"
+keywords = ["cookies", "cookies.txt", "netscape", "cdp", "playwright", "selenium", "yt-dlp"]
+dependencies = []
+
+[project.optional-dependencies]
+cdp = ["websocket-client>=1.6"]
+playwright = ["playwright>=1.40"]
+selenium = ["selenium>=4.15"]
+dev = ["pytest>=7.4", "websocket-client>=1.6"]
+all = ["websocket-client>=1.6", "playwright>=1.40", "selenium>=4.15"]
+
+[project.scripts]
+cod-cookie-jar = "cod_cookie_jar.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"

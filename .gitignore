@@ -1,0 +1,15 @@
+__pycache__/
+*.pyc
+*.egg-info/
+build/
+dist/
+.venv/
+# never commit exported cookies
+cookies.txt
+*.cookies.txt
+
+# pytest
+.pytest_cache/
+
+# local Claude Code settings
+.claude/settings.local.json
