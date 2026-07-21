@@ -1,0 +1,21 @@
+{
+  "name": "cod-cookie-jar",
+  "owner": {
+    "name": "EMBLEM-NLP",
+    "url": "https://github.com/EMBLEM-NLP"
+  },
+  "metadata": {
+    "description": "Marketplace for cod-cookie-jar: export a spec-correct cookies.txt from a browser you control.",
+    "version": "0.1.0"
+  },
+  "plugins": [
+    {
+      "name": "cod-cookie-jar",
+      "source": "./",
+      "description": "Export a spec-correct Netscape cookies.txt from a browser you control (CDP/Playwright/Selenium), preserving HttpOnly cookies for curl, yt-dlp, wget, and MozillaCookieJar.",
+      "version": "0.1.0",
+      "author": { "name": "EMBLEM-NLP" },
+      "keywords": ["cookies", "cookies.txt", "netscape", "yt-dlp", "curl"]
+    }
+  ]
+}

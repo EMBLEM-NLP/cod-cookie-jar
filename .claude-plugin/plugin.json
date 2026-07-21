@@ -1,0 +1,10 @@
+{
+  "name": "cod-cookie-jar",
+  "version": "0.1.0",
+  "description": "Export a spec-correct Netscape cookies.txt from a browser you control (CDP/Playwright/Selenium), keeping HttpOnly cookies that curl, yt-dlp, wget, and MozillaCookieJar require.",
+  "author": { "name": "EMBLEM-NLP" },
+  "homepage": "https://github.com/EMBLEM-NLP/cod-cookie-jar",
+  "repository": "https://github.com/EMBLEM-NLP/cod-cookie-jar",
+  "license": "SEE LICENSE IN README",
+  "keywords": ["cookies", "cookies.txt", "netscape", "cdp", "playwright", "selenium", "yt-dlp", "curl"]
+}
