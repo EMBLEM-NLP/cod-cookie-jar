@@ -5,6 +5,5 @@
   "author": { "name": "EMBLEM-NLP" },
   "homepage": "https://github.com/EMBLEM-NLP/cod-cookie-jar",
   "repository": "https://github.com/EMBLEM-NLP/cod-cookie-jar",
-  "license": "SEE LICENSE IN README",
   "keywords": ["cookies", "cookies.txt", "netscape", "cdp", "playwright", "selenium", "yt-dlp", "curl"]
 }

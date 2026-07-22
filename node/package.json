@@ -3,7 +3,6 @@
   "version": "0.1.0",
   "description": "Export cookies.txt (Netscape format) from a browser you control.",
   "type": "module",
-  "license": "UNLICENSED",
   "engines": {
     "node": ">=18"
   },
