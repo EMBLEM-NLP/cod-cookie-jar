@@ -44,6 +44,43 @@ cod-cookie-jar export --adapter cdp --endpoint http://localhost:9222 \
 cod-cookie-jar export --adapter cdp -o - | yt-dlp --cookies /dev/stdin URL
 ```
 
+## Recipe: hand a YouTube session to yt-dlp / media-acquisition-mcp
+
+The common reason to reach for this: `yt-dlp` prints **"Sign in to confirm
+you're not a bot"**, or a members-only / age-gated video needs your session.
+End-to-end, driving a browser you control with Playwright:
+
+```bash
+pip install -e ".[all]" && python -m playwright install chromium
+# Launch, (optionally) log in, save the session as cookies.txt:
+python examples/export_youtube_playwright.py            # anonymous visitor session
+LOGIN=1 WAIT_FOR=SID python examples/export_youtube_playwright.py   # sign in during the wait
+
+# Feed it to yt-dlp. On modern YouTube you also need a JS runtime + the EJS
+# challenge solver (n-sig / PO token); deno + the npm component is the reliable combo:
+yt-dlp --cookies cookies.txt --js-runtimes deno --remote-components ejs:npm <URL>
+```
+
+For [media-acquisition-mcp](https://github.com/EMBLEM-NLP/media-acquisition-mcp),
+point its operator env at the file you exported — the gateway passes it straight
+to its yt-dlp provider:
+
+```bash
+export YTDLP_COOKIES_PATH=/abs/path/cookies.txt
+# YTDLP_JS_RUNTIMES=deno  YTDLP_REMOTE_COMPONENTS=ejs:npm  (see that repo's .env.example)
+```
+
+**Locked-down / datacenter environments.** If all egress goes through a MITM
+proxy, set `HTTPS_PROXY` (the example forwards it to Chromium and trusts the
+proxy CA) — some proxies also reset TLS 1.3/ECH from headless Chromium, which
+the example's launch flags work around **without** disabling verification.
+Two honest limits, not bugs in this tool: an **anonymous** visitor session can
+locate a video and pull its public **storyboard** frames, but YouTube's
+**PO-token gate** still blocks a full-resolution download from a datacenter IP
+unless the session is **signed in**; and neither this tool nor
+media-acquisition-mcp does bot-gate circumvention — a signed-in cookie is the
+supported way through.
+
 ## Library API
 ```python
 from cod_cookie_jar import CdpAdapter, PlaywrightAdapter, to_netscape, wait_for_cookie
