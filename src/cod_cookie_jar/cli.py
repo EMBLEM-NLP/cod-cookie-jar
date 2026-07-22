@@ -7,6 +7,7 @@ import sys
 from dataclasses import asdict
 
 from .adapters import get_adapter
+from .adapters.base import filter_domain
 from .core import to_netscape
 from .sinks import write_file, write_stdout
 from .wait import WaitTimeout, wait_for_cookie
@@ -65,22 +66,34 @@ def _make_adapter(args):
 
 def cmd_export(args) -> int:
     adapter = _make_adapter(args)
-    domain = args.domain[0] if args.domain else None
+    # With a single --domain we can let the adapter narrow the fetch. With several,
+    # we must fetch everything and filter to the union ourselves, since the adapter
+    # fetch takes only one domain.
+    multi_domain = bool(args.domain) and len(args.domain) > 1
+    fetch_domain = None if multi_domain else (args.domain[0] if args.domain else None)
 
     try:
         if args.wait_for:
             cookies = wait_for_cookie(
-                adapter, args.wait_for, domain=domain, timeout=args.timeout
+                adapter, args.wait_for, domain=fetch_domain, timeout=args.timeout
             )
         else:
-            cookies = adapter.fetch(domain=domain)
+            cookies = adapter.fetch(domain=fetch_domain)
     except WaitTimeout as e:
         print("timeout: %s" % e, file=sys.stderr)
         return 2
 
-    if args.domain and len(args.domain) > 1:
-        keep = {d.lstrip(".").lower() for d in args.domain}
-        cookies = [c for c in cookies if c.domain.lstrip(".").lower() in keep or True]
+    if multi_domain:
+        # Union of per-domain matches, reusing the adapters' matching rules so a
+        # multi-domain filter behaves exactly like several single-domain fetches.
+        seen: set[int] = set()
+        union: list = []
+        for d in args.domain:
+            for c in filter_domain(cookies, d):
+                if id(c) not in seen:
+                    seen.add(id(c))
+                    union.append(c)
+        cookies = union
 
     if args.json:
         text = json.dumps([asdict(c) for c in cookies], indent=2) + "\n"
