@@ -8,7 +8,7 @@ import pathlib
 
 import pytest
 
-from cod_cookie_jar.core import from_json, from_wire, to_json, to_netscape
+from nlp_cookies_txt.core import from_json, from_wire, to_json, to_netscape
 
 FIXTURE_DIR = pathlib.Path(__file__).resolve().parents[1] / "fixtures" / "golden"
 FIXTURES = sorted(FIXTURE_DIR.glob("*.json"))

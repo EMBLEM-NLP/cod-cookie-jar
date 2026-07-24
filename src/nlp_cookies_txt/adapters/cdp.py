@@ -45,7 +45,7 @@ class CdpAdapter(Adapter):
         except ImportError as e:  # pragma: no cover
             raise RuntimeError(
                 "The CDP adapter needs 'websocket-client'. "
-                "Install with:  pip install cod-cookie-jar[cdp]"
+                "Install with:  pip install nlp-cookies-txt[cdp]"
             ) from e
 
         ws = websocket.create_connection(
