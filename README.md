@@ -1,4 +1,6 @@
-# cod-cookie-jar
+# nlp-cookies-txt
+
+> Part of the **[EMBLEM-ASI](https://github.com/EMBLEM-NLP/emblem-asi)** plugin marketplace. Pairs with [media-acquisition-mcp](https://github.com/EMBLEM-NLP/media-acquisition-mcp): this exports the `cookies.txt`, that feeds it to yt-dlp.
 
 Export a spec-correct **`cookies.txt`** (Netscape format) from **a browser you control**, from whatever automation stack you already use.
 
@@ -22,6 +24,11 @@ Cookie files are **credential-equivalent** — treat `cookies.txt` like a passwo
 
 ## Install
 ```bash
+# From the marketplace (Claude Code):
+#   /plugin marketplace add EMBLEM-NLP/emblem-asi
+#   /plugin install nlp-cookies-txt@emblem-asi
+
+# Or as a Python package:
 pip install -e ".[cdp]"      # CDP adapter (recommended, stack-agnostic)
 pip install -e ".[all]"      # + playwright + selenium adapters
 pip install -e ".[dev]"      # + pytest
@@ -34,14 +41,14 @@ Launch a browser **you control** with remote debugging, log in, then:
 google-chrome --remote-debugging-port=9222
 
 # 2. export after you've logged in
-cod-cookie-jar export --adapter cdp --endpoint http://localhost:9222 -o cookies.txt
+nlp-cookies-txt export --adapter cdp --endpoint http://localhost:9222 -o cookies.txt
 
 # only one domain, and wait until the auth cookie exists first
-cod-cookie-jar export --adapter cdp --endpoint http://localhost:9222 \
+nlp-cookies-txt export --adapter cdp --endpoint http://localhost:9222 \
     --domain example.com --wait-for SESSIONID --timeout 30 -o cookies.txt
 
 # pipe straight into yt-dlp
-cod-cookie-jar export --adapter cdp -o - | yt-dlp --cookies /dev/stdin URL
+nlp-cookies-txt export --adapter cdp -o - | yt-dlp --cookies /dev/stdin URL
 ```
 
 ## Recipe: hand a YouTube session to yt-dlp / media-acquisition-mcp
@@ -83,7 +90,7 @@ supported way through.
 
 ## Library API
 ```python
-from cod_cookie_jar import CdpAdapter, PlaywrightAdapter, to_netscape, wait_for_cookie
+from nlp_cookies_txt import CdpAdapter, PlaywrightAdapter, to_netscape, wait_for_cookie
 
 # CDP
 cookies = CdpAdapter("http://localhost:9222").fetch(domain="example.com")

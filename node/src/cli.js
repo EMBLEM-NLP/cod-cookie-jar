@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * cod-cookie-jar CLI (Node port).
+ * nlp-cookies-txt CLI (Node port).
  * Export cookies.txt (Netscape) or JSON from a browser you control via CDP.
  */
 import { writeFileSync, existsSync } from 'node:fs';
@@ -47,7 +47,7 @@ function looksGitTracked(path) {
 async function main() {
   const argv = process.argv.slice(2);
   if (argv[0] !== 'export') {
-    console.error('usage: cod-cookie-jar export [--adapter cdp] [--endpoint URL] ...');
+    console.error('usage: nlp-cookies-txt export [--adapter cdp] [--endpoint URL] ...');
     process.exit(1);
   }
   const args = parseArgs(argv.slice(1));

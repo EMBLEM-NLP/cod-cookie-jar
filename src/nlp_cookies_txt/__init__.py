@@ -1,4 +1,4 @@
-"""cod-cookie-jar: export cookies.txt (Netscape format) from a browser you control."""
+"""nlp-cookies-txt: export cookies.txt (Netscape format) from a browser you control."""
 from __future__ import annotations
 
 from .adapters import get_adapter

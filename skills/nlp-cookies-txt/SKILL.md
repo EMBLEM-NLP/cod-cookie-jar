@@ -1,5 +1,5 @@
 ---
-name: cod-cookie-jar
+name: nlp-cookies-txt
 description: >-
   Export a spec-correct Netscape cookies.txt from a browser the user controls,
   and hand it to curl, yt-dlp, wget, or Python's http.cookiejar.MozillaCookieJar.
@@ -18,7 +18,7 @@ description: >-
   it deliberately cannot do that, and requests of that shape are out of scope.
 ---
 
-# cod-cookie-jar
+# nlp-cookies-txt
 
 Produce a **byte-correct Netscape `cookies.txt`** from a browser the user
 operates, so downstream tools (`curl`, `yt-dlp`, `wget`, `MozillaCookieJar`)
@@ -50,12 +50,12 @@ The plugin ships the Python package, so no install is needed. Invoke the CLI
 with the package on `PYTHONPATH`, using the plugin root:
 
 ```bash
-PYTHONPATH="${CLAUDE_PLUGIN_ROOT}/src" python3 -m cod_cookie_jar.cli export [options]
+PYTHONPATH="${CLAUDE_PLUGIN_ROOT}/src" python3 -m nlp_cookies_txt.cli export [options]
 ```
 
 `${CLAUDE_PLUGIN_ROOT}` is set by Claude Code to this plugin's directory. If it
 is somehow unset (e.g. running from a clone), substitute the repo root so the
-path resolves to `.../cod-cookie-jar/src`.
+path resolves to `.../nlp-cookies-txt/src`.
 
 Only `websocket-client` is required, and only for the CDP adapter. If a CDP run
 fails with a missing-module error, tell the user to `pip install websocket-client`
@@ -86,20 +86,20 @@ Start the browser as the user (they do this, not you), log in, then export.
 google-chrome --remote-debugging-port=9222
 
 # 2. export everything to a file (written 0600)
-PYTHONPATH="${CLAUDE_PLUGIN_ROOT}/src" python3 -m cod_cookie_jar.cli export \
+PYTHONPATH="${CLAUDE_PLUGIN_ROOT}/src" python3 -m nlp_cookies_txt.cli export \
     --adapter cdp --endpoint http://localhost:9222 -o cookies.txt
 
 # scope to one domain and wait until the auth cookie actually exists first
-PYTHONPATH="${CLAUDE_PLUGIN_ROOT}/src" python3 -m cod_cookie_jar.cli export \
+PYTHONPATH="${CLAUDE_PLUGIN_ROOT}/src" python3 -m nlp_cookies_txt.cli export \
     --adapter cdp --endpoint http://localhost:9222 \
     --domain example.com --wait-for SESSIONID --timeout 30 -o cookies.txt
 
 # pipe straight into yt-dlp without ever touching disk
-PYTHONPATH="${CLAUDE_PLUGIN_ROOT}/src" python3 -m cod_cookie_jar.cli export \
+PYTHONPATH="${CLAUDE_PLUGIN_ROOT}/src" python3 -m nlp_cookies_txt.cli export \
     --adapter cdp -o - | yt-dlp --cookies /dev/stdin "URL"
 
 # from a saved Playwright storage_state instead of a live browser
-PYTHONPATH="${CLAUDE_PLUGIN_ROOT}/src" python3 -m cod_cookie_jar.cli export \
+PYTHONPATH="${CLAUDE_PLUGIN_ROOT}/src" python3 -m nlp_cookies_txt.cli export \
     --adapter playwright --storage-state ./storage_state.json -o cookies.txt
 ```
 
@@ -121,7 +121,7 @@ git-tracked output path).
 ## Library API (when a live Playwright/Selenium object is in play)
 
 ```python
-from cod_cookie_jar import CdpAdapter, PlaywrightAdapter, to_netscape, wait_for_cookie
+from nlp_cookies_txt import CdpAdapter, PlaywrightAdapter, to_netscape, wait_for_cookie
 
 cookies = CdpAdapter("http://localhost:9222").fetch(domain="example.com")
 open("cookies.txt", "w").write(to_netscape(cookies))
@@ -135,6 +135,6 @@ cookies = wait_for_cookie(CdpAdapter("http://localhost:9222"), "SESSIONID",
                           domain="example.com", timeout=30)
 ```
 
-Public API lives in `${CLAUDE_PLUGIN_ROOT}/src/cod_cookie_jar/`; the serializer
+Public API lives in `${CLAUDE_PLUGIN_ROOT}/src/nlp_cookies_txt/`; the serializer
 and format rules are in `core.py`, the adapters in `adapters/`. Read those only
 if the user asks about internals — for normal exports, the CLI above is enough.

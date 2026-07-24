@@ -3,7 +3,7 @@
 Prereq: start a browser you control with remote debugging, then log in:
     google-chrome --remote-debugging-port=9222
 """
-from cod_cookie_jar import CdpAdapter, to_netscape, wait_for_cookie
+from nlp_cookies_txt import CdpAdapter, to_netscape, wait_for_cookie
 
 ENDPOINT = "http://localhost:9222"
 

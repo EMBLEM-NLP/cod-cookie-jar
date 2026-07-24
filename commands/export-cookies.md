@@ -4,7 +4,7 @@ argument-hint: "[--adapter cdp|playwright] [--endpoint URL | --storage-state FIL
 ---
 
 Export a Netscape `cookies.txt` from a browser **the user controls**, using the
-bundled `cod-cookie-jar` tool. Follow the `cod-cookie-jar` skill for adapter
+bundled `nlp-cookies-txt` tool. Follow the `nlp-cookies-txt` skill for adapter
 choice, safety rules (credential-equivalent output, `0600`, refuses git-tracked
 paths without `--force`), and post-export verification.
 
@@ -19,7 +19,7 @@ Do this:
    to `cdp` and the endpoint to `http://localhost:9222` unless overridden:
 
    ```bash
-   PYTHONPATH="${CLAUDE_PLUGIN_ROOT}/src" python3 -m cod_cookie_jar.cli export $ARGUMENTS
+   PYTHONPATH="${CLAUDE_PLUGIN_ROOT}/src" python3 -m nlp_cookies_txt.cli export $ARGUMENTS
    ```
 
    If `$ARGUMENTS` is empty, ask which stack their browser is in (CDP endpoint,

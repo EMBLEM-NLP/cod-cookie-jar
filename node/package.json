@@ -1,5 +1,5 @@
 {
-  "name": "cod-cookie-jar",
+  "name": "nlp-cookies-txt",
   "version": "0.1.0",
   "description": "Export cookies.txt (Netscape format) from a browser you control.",
   "type": "module",
@@ -7,7 +7,7 @@
     "node": ">=18"
   },
   "bin": {
-    "cod-cookie-jar": "./src/cli.js"
+    "nlp-cookies-txt": "./src/cli.js"
   },
   "exports": {
     ".": "./src/index.js"

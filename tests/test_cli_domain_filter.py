@@ -8,7 +8,7 @@ parent/subdomain matching as a single-domain fetch.
 """
 import json
 
-from cod_cookie_jar.cli import main
+from nlp_cookies_txt.cli import main
 
 # Three unrelated domains plus one subdomain to exercise parent/child matching.
 COOKIES = [

@@ -1,4 +1,4 @@
-/** cod-cookie-jar (Node port): export cookies.txt from a browser you control. */
+/** nlp-cookies-txt (Node port): export cookies.txt from a browser you control. */
 export {
   toNetscape,
   fromNetscape,

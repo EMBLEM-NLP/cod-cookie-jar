@@ -3,7 +3,7 @@
 This is the end-to-end flow for feeding an authenticated YouTube session to
 ``yt-dlp`` (e.g. to get past "Sign in to confirm you're not a bot", or to reach
 members-only / age-gated content). It drives a browser **you** operate and a
-session **you** authenticated — cod-cookie-jar never decrypts an on-disk store.
+session **you** authenticated — nlp-cookies-txt never decrypts an on-disk store.
 
     pip install -e ".[all]"          # pulls in playwright
     python -m playwright install chromium
@@ -22,7 +22,7 @@ import os
 
 from playwright.sync_api import sync_playwright
 
-from cod_cookie_jar import PlaywrightAdapter, to_netscape, wait_for_cookie
+from nlp_cookies_txt import PlaywrightAdapter, to_netscape, wait_for_cookie
 
 URL = os.environ.get("URL", "https://www.youtube.com/")
 OUT = os.environ.get("OUT", "cookies.txt")

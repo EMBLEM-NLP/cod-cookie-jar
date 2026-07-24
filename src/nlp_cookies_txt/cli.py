@@ -1,4 +1,4 @@
-"""Command-line interface for cod-cookie-jar."""
+"""Command-line interface for nlp-cookies-txt."""
 from __future__ import annotations
 
 import argparse
@@ -15,7 +15,7 @@ from .wait import WaitTimeout, wait_for_cookie
 
 def _build_parser() -> argparse.ArgumentParser:
     p = argparse.ArgumentParser(
-        prog="cod-cookie-jar",
+        prog="nlp-cookies-txt",
         description="Export cookies.txt (Netscape format) from a browser you control.",
     )
     sub = p.add_subparsers(dest="command", required=True)
